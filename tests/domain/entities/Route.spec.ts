@@ -12,4 +12,20 @@ describe('Route entity', () => {
 
     expect(route).toEqual(routeData);
   });
+
+  it('should throw on invalid origin or destination', () => {
+    const routeData = {
+      origin: 'GRU1',
+      destination: 'BRC',
+      price: 10,
+    };
+
+    expect(() => {
+      const route = new Route(routeData);
+    }).toThrowError(
+      new Error(
+        `Invalid origin or destination (${routeData.origin}-${routeData.destination})`,
+      ),
+    );
+  });
 });
