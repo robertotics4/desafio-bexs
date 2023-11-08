@@ -1,6 +1,6 @@
 # Core
-[ ] Leitura de rotas através de arquivo CSV
-[ ] Cálculo da melhor rota
+[x] Leitura de rotas através de arquivo CSV
+[x] Cálculo da melhor rota (Algoritmo de Dijkstra)
 
 # Interface de Console
 [ ] Construção da interface de console

@@ -3,7 +3,6 @@ import {
   IFindBestPathUseCase,
 } from '@/domain/contracts/useCases';
 import { Path, Route } from '@/domain/entities';
-import { isValidLocation } from '../utils';
 
 export class FindBestPathUseCase implements IFindBestPathUseCase {
   private routes: Route[];
@@ -13,10 +12,6 @@ export class FindBestPathUseCase implements IFindBestPathUseCase {
   }
 
   execute({ origin, destination }: FindBestPath.Input): Path | null {
-    if (!isValidLocation(origin) || !isValidLocation(destination)) {
-      throw new Error('Invalid origin or destination');
-    }
-
     const bestPaths: { [key: string]: Path } = {};
     bestPaths[origin] = { routes: [], price: 0 };
 
