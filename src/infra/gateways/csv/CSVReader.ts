@@ -13,7 +13,11 @@ export class CSVReader implements ICSVReader {
       stream
         .pipe(csv({ headers: ['origin', 'destination', 'price'] }))
         .on('data', (row: any) => {
-          const route = new Route(row);
+          const route = new Route({
+            origin: row.origin,
+            destination: row.destination,
+            price: Number(row.price),
+          });
           routes.push(route);
         })
         .on('end', () => {

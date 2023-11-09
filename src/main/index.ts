@@ -12,10 +12,11 @@ import { env } from '@/main/config/env';
 //     .then(data => {
 //       const bestPath = new FindBestPathUseCase(data).execute({
 //         origin: 'GRU',
-//         destination: 'ORL',
+//         destination: 'CDG',
 //       });
 
 //       console.log(bestPath);
+//       console.log(Path.getFormattedPath(bestPath!));
 //       resolve(data);
 //     })
 //     .catch(error => {
