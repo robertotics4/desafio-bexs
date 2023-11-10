@@ -1,9 +1,10 @@
-import { ICSVReader } from '@/domain/contracts/gateways';
+import { promises as fsPromises } from 'fs';
 import fs from 'node:fs';
 import csv from 'csv-parser';
 import { Route } from '@/domain/entities';
+import { ICSVManipulator } from '@/domain/contracts/gateways';
 
-export class CSVReader implements ICSVReader {
+export class CSVManipulator implements ICSVManipulator {
   async readRoutesFile(filePath: string): Promise<Route[]> {
     const routes: Route[] = [];
 
@@ -27,5 +28,12 @@ export class CSVReader implements ICSVReader {
           reject(error);
         });
     });
+  }
+
+  async writeRoutesFile(filePath: string, routes: Route[]): Promise<void> {
+    const csvData = routes
+      .map(route => `${route.origin},${route.destination},${route.price}`)
+      .join('\n');
+    await fsPromises.writeFile(filePath, csvData, 'utf-8');
   }
 }

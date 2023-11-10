@@ -1,9 +1,9 @@
-import { ICSVReader } from '@/domain';
-import { CSVReader } from '@/infra';
+import { ICSVManipulator } from '@/domain';
+import { CSVManipulator } from '@/infra';
 import fs from 'fs';
 
-describe('CSVReader', () => {
-  let sut: ICSVReader;
+describe('CSVManipulator', () => {
+  let sut: ICSVManipulator;
   let mockData: string;
 
   beforeAll(() => {
@@ -13,7 +13,7 @@ describe('CSVReader', () => {
   });
 
   beforeEach(() => {
-    sut = new CSVReader();
+    sut = new CSVManipulator();
   });
 
   afterAll(() => {

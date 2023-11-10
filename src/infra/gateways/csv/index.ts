@@ -1,1 +1,1 @@
-export * from './CSVReader';
+export * from './CSVManipulator';

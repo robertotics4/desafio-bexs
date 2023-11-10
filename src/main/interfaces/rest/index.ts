@@ -1,11 +1,11 @@
-import './config/module-alias';
+import '../../config/module-alias';
 
 import { env } from '@/main/config/env';
-import { app } from './interfaces/rest/app';
+import { app } from './app';
 
 app.get('/', (request, response) => {
   return response.json({
-    appName: 'template-cleanarch-typescript',
+    appName: 'Desafio BEXS',
     version: '1.0.0',
   });
 });

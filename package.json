@@ -4,8 +4,6 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node -r dotenv/config dist/main",
-    "dev": "ts-node-dev --respawn --transpile-only -r dotenv/config src/main",
     "clean": "rimraf dist",
     "build": "npm run clean && tsc -p tsconfig.build.json",
     "lint": "eslint .",
@@ -16,7 +14,8 @@
     "test:coverage": "npm t -- --coverage",
     "prepare": "husky install",
     "commit": "cz",
-    "start:console": "ts-node-dev --respawn --transpile-only -r dotenv/config src/main/interfaces/console"
+    "start:console": "ts-node-dev --respawn --transpile-only -r dotenv/config src/main/interfaces/console",
+    "start:rest": "ts-node-dev --respawn --transpile-only -r dotenv/config src/main/interfaces/rest"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.2.0",
