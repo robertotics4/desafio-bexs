@@ -15,7 +15,8 @@
     "test:staged": "npm t -- --findRelatedTests",
     "test:coverage": "npm t -- --coverage",
     "prepare": "husky install",
-    "commit": "cz"
+    "commit": "cz",
+    "start:console": "ts-node-dev --respawn --transpile-only -r dotenv/config src/main/interfaces/console"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.2.0",
