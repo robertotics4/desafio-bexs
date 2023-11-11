@@ -11,7 +11,9 @@ export class CreateRouteController {
   }
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const { origin, destination, price, filePath } = request.body;
+    const { origin, destination, price } = request.body;
+
+    const filePath = process.env.FILE_PATH;
 
     if (!filePath) {
       return response.status(400).json({ error: 'filePath is required' });
@@ -23,10 +25,7 @@ export class CreateRouteController {
 
     const route = new Route({ origin, destination, price });
 
-    const createdRoute = await this.createRouteUseCase?.execute({
-      route,
-      filePath,
-    });
+    const createdRoute = await this.createRouteUseCase?.execute(route);
 
     return response.status(201).json(createdRoute);
   }

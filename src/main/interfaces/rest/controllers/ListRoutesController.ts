@@ -11,7 +11,7 @@ export class ListRoutesController {
   }
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const { filePath } = request.body;
+    const filePath = process.env.FILE_PATH;
 
     if (!filePath) {
       return response.status(400).json({ error: 'filePath is required' });
@@ -21,7 +21,7 @@ export class ListRoutesController {
       this.injectDependencies(filePath);
     }
 
-    const result = await this.listRoutesUseCase?.execute(filePath);
+    const result = await this.listRoutesUseCase?.execute();
     return response.json({ count: result?.length, rows: result });
   }
 
