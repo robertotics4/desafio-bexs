@@ -1,10 +1,10 @@
 import { ListRoutesUseCase } from '@/application';
 import { IListRoutesUseCase } from '@/domain';
 import { CSVManipulator, RouteRepositoryInFile } from '@/infra';
+import { env } from '@/main/config/env';
 
 export function makeListRoutesUseCase(): IListRoutesUseCase {
-  const filePath = process.env.FILE_PATH;
-
+  const { filePath } = env;
   const csvManipulator = new CSVManipulator();
   const routeRepository = new RouteRepositoryInFile(
     csvManipulator,

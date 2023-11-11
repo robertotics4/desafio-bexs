@@ -3,12 +3,12 @@
 [x] Cálculo da melhor rota (Algoritmo de Dijkstra)
 
 # Interface de Console
-[ ] Construção da interface de console
+[x] Construção da interface de console
 
 # Interface REST
-[ ] Construção da interface REST
-[ ] Registro de novas rotas
-[ ] Consulta de melhor rota
+[x] Construção da interface REST
+[x] Registro de novas rotas
+[x] Consulta de melhor rota
 
 # Testes Unitários
 [ ] Implementar testes unitários para 100% de coverage
