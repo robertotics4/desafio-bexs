@@ -21,6 +21,6 @@ export class Path {
     );
     const formattedPath = uniqueLocations.join(' - ');
 
-    return formattedPath;
+    return `${formattedPath} > $${path.price}`;
   }
 }

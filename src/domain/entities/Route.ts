@@ -1,3 +1,5 @@
+import { AppError } from '@/main/interfaces/rest/errors';
+
 export class Route {
   origin: string;
 
@@ -11,7 +13,7 @@ export class Route {
       this.destination = destination;
       this.price = price;
     } else {
-      throw new Error(
+      throw new AppError(
         `Invalid origin or destination (${origin}-${destination})`,
       );
     }

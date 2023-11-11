@@ -1,17 +1,24 @@
+import { IRouteRepository } from '@/domain/contracts/gateways';
 import {
   FindBestPath,
   IFindBestPathUseCase,
 } from '@/domain/contracts/useCases';
-import { Path, Route } from '@/domain/entities';
+import { Path } from '@/domain/entities';
+import { AppError } from '@/main/interfaces/rest/errors';
 
 export class FindBestPathUseCase implements IFindBestPathUseCase {
-  private routes: Route[];
+  constructor(private routeRepository: IRouteRepository) {}
 
-  constructor(routes: Route[]) {
-    this.routes = routes;
-  }
+  async execute({
+    origin,
+    destination,
+  }: FindBestPath.Input): Promise<Path | null> {
+    const routes = await this.routeRepository.list();
 
-  execute({ origin, destination }: FindBestPath.Input): Path | null {
+    if (!routes.length) {
+      throw new AppError('There are no registered routes');
+    }
+
     const bestPaths: { [key: string]: Path } = {};
     bestPaths[origin] = { routes: [], price: 0 };
 
@@ -20,7 +27,7 @@ export class FindBestPathUseCase implements IFindBestPathUseCase {
     while (queue.length > 0) {
       const currentLocation = queue.shift() as string;
 
-      for (const route of this.routes) {
+      for (const route of routes) {
         if (route.origin === currentLocation) {
           const newPath: Path = {
             routes: bestPaths[currentLocation].routes.concat(route),

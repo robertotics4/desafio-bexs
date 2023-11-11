@@ -8,5 +8,5 @@ export namespace FindBestPath {
 }
 
 export interface IFindBestPathUseCase {
-  execute({ origin, destination }: FindBestPath.Input): Path | null;
+  execute({ origin, destination }: FindBestPath.Input): Promise<Path | null>;
 }

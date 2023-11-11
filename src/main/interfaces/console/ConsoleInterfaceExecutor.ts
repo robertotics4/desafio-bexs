@@ -1,6 +1,7 @@
 import { FindBestPathUseCase } from '@/application';
 import { Path } from '@/domain';
 import * as readlineSync from 'readline-sync';
+import { AppError } from '../rest/errors';
 
 export class ConsoleInterfaceExecutor {
   constructor(private findBestPathUseCase: FindBestPathUseCase) {}
@@ -16,13 +17,13 @@ export class ConsoleInterfaceExecutor {
       }
 
       const [origin, destination] = input.split('-');
-      const bestPath = this.findBestPathUseCase.execute({
+      const bestPath = await this.findBestPathUseCase.execute({
         origin,
         destination,
       });
 
       if (!origin || !destination) {
-        throw new Error(
+        throw new AppError(
           'Invalid route format. Please enter the route in the format "DE-PARA" (e.g., GRU-CDG).',
         );
       }
@@ -33,10 +34,10 @@ export class ConsoleInterfaceExecutor {
 
   private printBestPath(path: Path | null): void {
     if (!path) {
-      throw new Error('No valid path found.');
+      throw new AppError('No valid path found.');
     }
 
     const formattedPath = Path.getFormattedPath(path);
-    console.log(`Best route: ${formattedPath} > $${path.price}`);
+    console.log(`Best route: ${formattedPath}`);
   }
 }

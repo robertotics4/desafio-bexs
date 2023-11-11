@@ -1,7 +1,7 @@
 import '../../config/module-alias';
 
 import { FindBestPathUseCase } from '@/application';
-import { CSVManipulator } from '@/infra';
+import { CSVManipulator, RouteRepositoryInFile } from '@/infra';
 import { ConsoleInterfaceExecutor } from './ConsoleInterfaceExecutor';
 
 const filePath = process.argv[2];
@@ -11,9 +11,10 @@ if (!filePath) {
   process.exit(1);
 }
 
-async function runApplication() {
+async function runApplication(csvPath: string) {
   try {
-    const routes = await new CSVManipulator().readRoutesFile(filePath);
+    const csvManipulator = new CSVManipulator();
+    const routes = await csvManipulator.readRoutesFile(csvPath);
 
     if (routes.length) {
       console.log(
@@ -21,7 +22,8 @@ async function runApplication() {
       );
     }
 
-    const findBestPathUseCase = new FindBestPathUseCase(routes);
+    const routeRepository = new RouteRepositoryInFile(csvManipulator, csvPath);
+    const findBestPathUseCase = new FindBestPathUseCase(routeRepository);
     const executor = new ConsoleInterfaceExecutor(findBestPathUseCase);
     executor.run();
   } catch (error: any) {
@@ -29,4 +31,4 @@ async function runApplication() {
   }
 }
 
-runApplication();
+runApplication(filePath);
