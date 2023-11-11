@@ -1,10 +1,11 @@
 import { CreateRouteUseCase } from '@/application';
-import { Route } from '@/domain';
+import { ICreateRouteUseCase, Route } from '@/domain';
 import { CSVManipulator, RouteRepositoryInFile } from '@/infra';
 import { Request, Response } from 'express';
+import { makeCreateRouteUseCase } from '../factories';
 
 export class CreateRouteController {
-  private createRouteUseCase?: CreateRouteUseCase;
+  private createRouteUseCase?: ICreateRouteUseCase;
 
   constructor() {
     this.handle = this.handle.bind(this);
@@ -13,26 +14,12 @@ export class CreateRouteController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { origin, destination, price } = request.body;
 
-    const filePath = process.env.FILE_PATH;
-
-    if (!filePath) {
-      return response.status(400).json({ error: 'filePath is required' });
-    }
-
-    if (!this.createRouteUseCase) {
-      this.injectDependencies(filePath);
-    }
+    this.createRouteUseCase = makeCreateRouteUseCase();
 
     const route = new Route({ origin, destination, price });
 
-    const createdRoute = await this.createRouteUseCase?.execute(route);
+    const createdRoute = await this.createRouteUseCase.execute(route);
 
     return response.status(201).json(createdRoute);
-  }
-
-  private injectDependencies(filePath: string): void {
-    const csvManipulator = new CSVManipulator();
-    const routeRepository = new RouteRepositoryInFile(csvManipulator, filePath);
-    this.createRouteUseCase = new CreateRouteUseCase(routeRepository);
   }
 }
