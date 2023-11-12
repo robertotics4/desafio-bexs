@@ -28,4 +28,16 @@ describe('Route entity', () => {
       ),
     );
   });
+
+  it('should return false if test invalid location', () => {
+    const result = Route.isValidLocation('Invalid');
+
+    expect(result).toBe(false);
+  });
+
+  it('should return true if test valid location', () => {
+    const result = Route.isValidLocation('GRU');
+
+    expect(result).toBe(true);
+  });
 });
