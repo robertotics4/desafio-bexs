@@ -11,7 +11,7 @@
 [x] Consulta de melhor rota
 
 # Testes Unitários
-[ ] Implementar testes unitários para 100% de coverage
+[x] Implementar testes unitários para 100% de coverage
 
 # Documentação
 [ ] Criar documentação para interface REST
