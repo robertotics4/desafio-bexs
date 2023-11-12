@@ -14,5 +14,5 @@
 [x] Implementar testes unitários para 100% de coverage
 
 # Documentação
-[ ] Criar documentação para interface REST
-[ ] Criar instruções de execução da aplicação no README.md
+[x] Criar documentação para interface REST
+[x] Criar instruções de execução da aplicação no README.md
