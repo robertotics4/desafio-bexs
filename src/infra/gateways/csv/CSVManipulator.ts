@@ -1,10 +1,16 @@
-import { promises as fsPromises } from 'fs';
 import csv from 'csv-parser';
 import { Route } from '@/domain/entities';
-import { ICSVManipulator, IFileSystem } from '@/domain/contracts/gateways';
+import {
+  ICSVManipulator,
+  IFileSystem,
+  IPromisesFileSystem,
+} from '@/domain/contracts/gateways';
 
 export class CSVManipulator implements ICSVManipulator {
-  constructor(private fileSystem: IFileSystem) {}
+  constructor(
+    private fileSystem: IFileSystem,
+    private promisesFileSystem: IPromisesFileSystem,
+  ) {}
 
   async readRoutesFile(filePath: string): Promise<Route[]> {
     const routes: Route[] = [];
@@ -37,6 +43,6 @@ export class CSVManipulator implements ICSVManipulator {
     const csvData = routes
       .map(route => `${route.origin},${route.destination},${route.price}`)
       .join('\n');
-    await fsPromises.writeFile(filePath, csvData, 'utf-8');
+    await this.promisesFileSystem.writeFile(filePath, csvData, 'utf-8');
   }
 }

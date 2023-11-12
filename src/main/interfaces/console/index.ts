@@ -2,7 +2,7 @@ import '../../config/module-alias';
 
 import { FindBestPathUseCase } from '@/application';
 import { CSVManipulator, RouteRepositoryInFile } from '@/infra';
-import { NodeFs } from '@/infra/gateways/fileSystem';
+import { NodeFs, PromisesFs } from '@/infra/gateways/fileSystem';
 import { ConsoleInterfaceExecutor } from './ConsoleInterfaceExecutor';
 
 const filePath = process.argv[2];
@@ -15,7 +15,8 @@ if (!filePath) {
 async function runApplication(csvPath: string) {
   try {
     const nodeFs = new NodeFs();
-    const csvManipulator = new CSVManipulator(nodeFs);
+    const promisesFs = new PromisesFs();
+    const csvManipulator = new CSVManipulator(nodeFs, promisesFs);
     const routes = await csvManipulator.readRoutesFile(csvPath);
 
     if (routes.length) {
