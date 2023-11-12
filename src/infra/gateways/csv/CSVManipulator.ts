@@ -1,15 +1,18 @@
 import { promises as fsPromises } from 'fs';
-import fs from 'node:fs';
 import csv from 'csv-parser';
 import { Route } from '@/domain/entities';
-import { ICSVManipulator } from '@/domain/contracts/gateways';
+import { ICSVManipulator, IFileSystem } from '@/domain/contracts/gateways';
 
 export class CSVManipulator implements ICSVManipulator {
+  constructor(private fileSystem: IFileSystem) {}
+
   async readRoutesFile(filePath: string): Promise<Route[]> {
     const routes: Route[] = [];
 
     return new Promise((resolve, reject) => {
-      const stream = fs.createReadStream(filePath, { encoding: 'utf8' });
+      const stream = this.fileSystem.createReadStream(filePath, {
+        encoding: 'utf8',
+      });
 
       stream
         .pipe(csv({ headers: ['origin', 'destination', 'price'] }))

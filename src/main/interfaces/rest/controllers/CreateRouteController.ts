@@ -1,6 +1,4 @@
-import { CreateRouteUseCase } from '@/application';
 import { ICreateRouteUseCase, Route } from '@/domain';
-import { CSVManipulator, RouteRepositoryInFile } from '@/infra';
 import { Request, Response } from 'express';
 import { makeCreateRouteUseCase } from '../factories';
 

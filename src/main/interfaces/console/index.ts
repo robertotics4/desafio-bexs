@@ -1,4 +1,5 @@
 import '../../config/module-alias';
+import fs from 'node:fs';
 
 import { FindBestPathUseCase } from '@/application';
 import { CSVManipulator, RouteRepositoryInFile } from '@/infra';
@@ -13,7 +14,7 @@ if (!filePath) {
 
 async function runApplication(csvPath: string) {
   try {
-    const csvManipulator = new CSVManipulator();
+    const csvManipulator = new CSVManipulator(fs);
     const routes = await csvManipulator.readRoutesFile(csvPath);
 
     if (routes.length) {
