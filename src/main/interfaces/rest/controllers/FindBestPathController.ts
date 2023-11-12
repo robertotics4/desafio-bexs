@@ -19,10 +19,12 @@ export class FindBestPathController {
       destination,
     });
 
-    const result = { bestPath };
+    const result = { ...bestPath };
 
     if (bestPath) {
       Object.assign(result, { formatted: Path.getFormattedPath(bestPath) });
+    } else {
+      return response.json({ message: 'No path found for the given data' });
     }
 
     return response.json(result);
