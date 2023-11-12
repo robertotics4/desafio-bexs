@@ -9,7 +9,7 @@ describe('PromisesFs', () => {
   let data: string;
 
   beforeAll(() => {
-    filePath = 'docs/input-file.csv';
+    filePath = 'tests/infra/gateways/fileSystem/PromisesFsTest.csv';
     options = 'utf-8';
     data = 'any_data';
   });
