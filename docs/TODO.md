@@ -16,3 +16,6 @@
 # Documentação
 [x] Criar documentação para interface REST
 [x] Criar instruções de execução da aplicação no README.md
+
+# Melhorias
+[ ] Não permitir cadastro duplicado de rotas
