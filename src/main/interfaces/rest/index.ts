@@ -11,5 +11,7 @@ app.get('/', (request, response) => {
 });
 
 app.listen(env.port, () =>
-  console.log(`Server running at http://localhost:${env.port}`),
+  console.log(
+    `Server running at http://localhost:${env.port}\nDocumentation: http://localhost:${env.port}/${env.docsPathName}`,
+  ),
 );
